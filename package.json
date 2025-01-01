@@ -1,0 +1,25 @@
+{
+  "name": "smart-contract-auditor",
+  "version": "0.1.0",
+  "description": "A tool for auditing smart contracts and detecting common vulnerabilities",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "solidity",
+    "smart-contract",
+    "audit",
+    "security",
+    "blockchain",
+    "ethereum"
+  ],
+  "author": "DavidChenMe",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^9.4.1",
+    "chalk": "^4.1.2"
+  },
+  "devDependencies": {}
+}

@@ -2,8 +2,10 @@
 
 const { program } = require('commander');
 const chalk = require('chalk');
+const path = require('path');
 const FileReader = require('./fileReader');
 const VulnerabilityDetector = require('./vulnerabilityDetector');
+const ReportGenerator = require('./reportGenerator');
 
 console.log(chalk.blue('Smart Contract Auditor v0.1.0'));
 
@@ -16,7 +18,8 @@ program
   .command('audit')
   .description('Audit a smart contract file')
   .argument('<file>', 'path to smart contract file')
-  .action((file) => {
+  .option('--output <file>', 'save report to file (supports .json and .md)')
+  .action((file, options) => {
     try {
       console.log(chalk.green(`Auditing contract: ${file}`));
       
@@ -37,6 +40,22 @@ program
           console.log(chalk.gray(`   ${vuln.description}`));
           console.log(chalk.cyan(`   Recommendation: ${vuln.recommendation}\n`));
         });
+      }
+
+      if (options.output) {
+        const ext = path.extname(options.output);
+        let reportPath;
+        
+        if (ext === '.json') {
+          reportPath = ReportGenerator.generateJSON(results, options.output);
+        } else if (ext === '.md') {
+          reportPath = ReportGenerator.generateMarkdown(results, options.output);
+        } else {
+          console.warn(chalk.yellow('Unsupported output format. Use .json or .md'));
+          return;
+        }
+        
+        console.log(chalk.green(`\n📄 Report saved to: ${reportPath}`));
       }
       
     } catch (error) {

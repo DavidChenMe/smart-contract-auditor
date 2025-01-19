@@ -2,7 +2,10 @@
   "name": "smart-contract-auditor",
   "version": "0.1.0",
   "description": "A tool for auditing smart contracts and detecting common vulnerabilities",
-  "main": "index.js",
+  "main": "src/index.js",
+  "bin": {
+    "smart-audit": "src/index.js"
+  },
   "scripts": {
     "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
